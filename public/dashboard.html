@@ -1,0 +1,191 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CBU UCZ Fellowship — Secretary General Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- Page Header -->
+  <header class="header-banner">
+    <div class="header-container">
+
+      <img src="images/cbu logo.png"
+           alt="CBU Logo"
+           class="logo logo-left">
+
+      <div class="header-title">
+        <h1>CBU UCZ FELLOWSHIP</h1>
+        <p>2026/2027 Secretary General Admin Dashboard</p>
+      </div>
+
+      <img src="images/ucz logo.png"
+           alt="UCZ Logo"
+           class="logo logo-right">
+
+    </div>
+  </header>
+
+  <!-- Main Page Content -->
+  <main class="container">
+
+    <!-- Quick Statistics -->
+    <section aria-labelledby="quick-stats-heading">
+
+      <h2 id="quick-stats-heading" class="sr-only">
+        Quick Statistics
+      </h2>
+
+      <div class="grid-3" style="margin-bottom: 20px;">
+
+        <div class="stat-box">
+          <div class="num" id="totalMembers">0</div>
+          <div class="label">Total Members</div>
+        </div>
+
+        <div class="stat-box">
+          <div class="num" id="todayCount">0</div>
+          <div class="label">Birthdays Today</div>
+        </div>
+
+        <div class="stat-box">
+          <div class="num" id="tomorrowCount">0</div>
+          <div class="label">Birthdays Tomorrow</div>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- Birthday Alerts -->
+    <aside class="card" aria-labelledby="birthday-heading">
+
+      <h2 id="birthday-heading">
+        🎂 Birthday Reminders
+      </h2>
+
+      <div id="birthdayTodaySection"></div>
+
+      <div id="birthdayTomorrowSection"></div>
+
+      <div id="noBirthdaysMsg"
+           style="color: var(--text-muted); font-size: 0.9rem;">
+        No upcoming birthdays today or tomorrow.
+      </div>
+
+    </aside>
+
+
+    <!-- Member Records -->
+    <section class="card" aria-labelledby="members-heading">
+
+      <div style="
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+        flex-wrap: wrap;
+        gap: 10px;
+      ">
+
+        <h2 id="members-heading">
+          Member Records
+        </h2>
+
+        <!-- Export Controls -->
+        <div style="display: flex; gap: 8px;">
+
+          <a href="/api/export/csv"
+             class="btn btn-accent btn-sm">
+            Export CSV
+          </a>
+
+          <button id="exportPdfBtn"
+                  class="btn btn-sm"
+                  style="background: #475569;">
+            Export PDF
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- Search and Filters -->
+      <div class="filters">
+
+        <input type="text"
+               id="searchInput"
+               placeholder="Search by name, phone, or residence..."
+               style="flex: 2;">
+
+        <select id="filterYear">
+          <option value="All">All Years</option>
+          <option value="1">1st Year</option>
+          <option value="2">2nd Year</option>
+          <option value="3">3rd Year</option>
+          <option value="4">4th Year</option>
+          <option value="5">5th Year</option>
+        </select>
+
+      </div>
+
+
+      <!-- Member Table -->
+      <div class="table-container">
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Programme</th>
+              <th>Year</th>
+              <th>Residence</th>
+              <th>Birthday</th>
+            </tr>
+          </thead>
+
+          <tbody id="membersTableBody">
+            <tr>
+              <td colspan="6" style="text-align: center;">
+                Loading records...
+              </td>
+            </tr>
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- Page Footer -->
+  <footer>
+    <div class="container">
+      <p>CBU UCZ Fellowship &copy; 2026/2027</p>
+      <p>Secretary General Records System</p>
+    </div>
+  </footer>
+
+
+  <!-- PDF Generation Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+
+  <!-- Dashboard JavaScript -->
+  <script src="js/dashboard.js"></script>
+
+</body>
+</html>
+```
