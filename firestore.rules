@@ -1,0 +1,47 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    match /members/{memberId} {
+      // One clear create rule: validate the payload before allowing any member record write.
+      allow create: if
+        request.resource.data.keys().hasAll([
+          'firstName',
+          'lastName',
+          'phone',
+          'dob',
+          'programme',
+          'yearOfStudy',
+          'residence',
+          'status',
+          'createdAt'
+        ]) &&
+        request.resource.data.firstName is string &&
+        request.resource.data.firstName.matches("^[A-Za-z][A-Za-z'\\- ]{0,49}$") &&
+        request.resource.data.lastName is string &&
+        request.resource.data.lastName.matches("^[A-Za-z][A-Za-z'\\- ]{0,49}$") &&
+        request.resource.data.phone is string &&
+        request.resource.data.phone.matches("^\\+260\\d{9}$") &&
+        request.resource.data.dob is string &&
+        request.resource.data.dob.matches("^\\d{4}-\\d{2}-\\d{2}$") &&
+        request.resource.data.dob.split('-')[0].size() == 4 &&
+        int(request.resource.data.dob.split('-')[0]) >= 1990 &&
+        int(request.resource.data.dob.split('-')[0]) <= 2016 &&
+        request.resource.data.programme is string &&
+        request.resource.data.programme.size() >= 2 &&
+        request.resource.data.programme.size() <= 100 &&
+        request.resource.data.yearOfStudy is string &&
+        request.resource.data.yearOfStudy in ['1', '2', '3', '4', '5'] &&
+        request.resource.data.residence is string &&
+        request.resource.data.residence.size() >= 2 &&
+        request.resource.data.residence.size() <= 100 &&
+        request.resource.data.status == 'active' &&
+        request.resource.data.createdAt is timestamp;
+
+      allow get, list, update, delete: if isSignedIn();
+    }
+  }
+}

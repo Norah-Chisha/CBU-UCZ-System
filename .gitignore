@@ -1,0 +1,11 @@
+node_modules/
+.env
+.env.*
+local.env
+serviceAccountKey.json
+public/firebase-config.js
+public/firebase-config.local.js
+.DS_Store
+coverage/
+dist/
+.vite/

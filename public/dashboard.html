@@ -1,191 +1,245 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CBU UCZ Fellowship — Secretary General Dashboard</title>
-  <link rel="stylesheet" href="style.css">
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CBU UCZ Fellowship — Secretary General Dashboard</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
 
-<body>
+  <body>
+    <div
+      id="appToast"
+      class="toast"
+      aria-live="polite"
+      aria-atomic="true"
+    ></div>
 
-  <!-- Page Header -->
-  <header class="header-banner">
-    <div class="header-container">
+    <header class="header-banner">
+      <div class="header-container">
+        <img src="images/cbu-logo.png" alt="CBU Logo" class="logo logo-left" />
 
-      <img src="images/cbu logo.png"
-           alt="CBU Logo"
-           class="logo logo-left">
-
-      <div class="header-title">
-        <h1>CBU UCZ FELLOWSHIP</h1>
-        <p>2026/2027 Secretary General Admin Dashboard</p>
-      </div>
-
-      <img src="images/ucz logo.png"
-           alt="UCZ Logo"
-           class="logo logo-right">
-
-    </div>
-  </header>
-
-  <!-- Main Page Content -->
-  <main class="container">
-
-    <!-- Quick Statistics -->
-    <section aria-labelledby="quick-stats-heading">
-
-      <h2 id="quick-stats-heading" class="sr-only">
-        Quick Statistics
-      </h2>
-
-      <div class="grid-3" style="margin-bottom: 20px;">
-
-        <div class="stat-box">
-          <div class="num" id="totalMembers">0</div>
-          <div class="label">Total Members</div>
+        <div class="header-title">
+          <h1>CBU UCZ FELLOWSHIP</h1>
+          <p>2026/2027 Secretary General Admin Dashboard</p>
         </div>
 
-        <div class="stat-box">
-          <div class="num" id="todayCount">0</div>
-          <div class="label">Birthdays Today</div>
-        </div>
-
-        <div class="stat-box">
-          <div class="num" id="tomorrowCount">0</div>
-          <div class="label">Birthdays Tomorrow</div>
-        </div>
-
+        <img src="images/ucz-logo.png" alt="UCZ Logo" class="logo logo-right" />
       </div>
 
-    </section>
-
-
-    <!-- Birthday Alerts -->
-    <aside class="card" aria-labelledby="birthday-heading">
-
-      <h2 id="birthday-heading">
-        🎂 Birthday Reminders
-      </h2>
-
-      <div id="birthdayTodaySection"></div>
-
-      <div id="birthdayTomorrowSection"></div>
-
-      <div id="noBirthdaysMsg"
-           style="color: var(--text-muted); font-size: 0.9rem;">
-        No upcoming birthdays today or tomorrow.
+      <div class="logout-bar">
+        <button id="logoutBtn" class="btn btn-sm" type="button">Logout</button>
       </div>
+    </header>
 
-    </aside>
+    <main class="container">
+      <section aria-labelledby="quick-stats-heading">
+        <h2 id="quick-stats-heading" class="sr-only">Quick Statistics</h2>
 
+        <div id="metricsLoading" class="loading-panel" aria-live="polite">
+          <span class="spinner" aria-hidden="true"></span>
+          <span>Loading dashboard statistics...</span>
+        </div>
 
-    <!-- Member Records -->
-    <section class="card" aria-labelledby="members-heading">
+        <div id="metricsState" class="hidden"></div>
 
-      <div style="
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 15px;
-        flex-wrap: wrap;
-        gap: 10px;
-      ">
+        <div class="grid-3 stats-grid">
+          <div class="stat-box">
+            <div class="num" id="totalMembers">0</div>
+            <div class="label">Total Members</div>
+          </div>
 
-        <h2 id="members-heading">
-          Member Records
-        </h2>
+          <div class="stat-box">
+            <div class="num" id="todayCount">0</div>
+            <div class="label">Birthdays Today</div>
+          </div>
 
-        <!-- Export Controls -->
-        <div style="display: flex; gap: 8px;">
+          <div class="stat-box">
+            <div class="num" id="tomorrowCount">0</div>
+            <div class="label">Birthdays Tomorrow</div>
+          </div>
+        </div>
+      </section>
 
-          <a href="/api/export/csv"
-             class="btn btn-accent btn-sm">
-            Export CSV
-          </a>
+      <aside class="card" aria-labelledby="birthday-heading">
+        <h2 id="birthday-heading">🎂 Birthday Reminders</h2>
+        <div id="birthdayTodaySection" class="birthday-section"></div>
+        <div id="birthdayTomorrowSection" class="birthday-section"></div>
+        <div id="noBirthdaysMsg" class="muted-message">
+          No upcoming birthdays today or tomorrow.
+        </div>
+      </aside>
 
-          <button id="exportPdfBtn"
-                  class="btn btn-sm"
-                  style="background: #475569;">
-            Export PDF
+      <section class="card" aria-labelledby="members-heading">
+        <div class="members-toolbar">
+          <h2 id="members-heading">Member Records</h2>
+
+          <div class="member-actions">
+            <button
+              id="addMemberBtn"
+              class="btn btn-accent btn-sm"
+              type="button"
+            >
+              Add Member
+            </button>
+            <button
+              id="exportCsvBtn"
+              class="btn btn-accent btn-sm"
+              type="button"
+            >
+              Export CSV
+            </button>
+            <button
+              id="exportPdfBtn"
+              class="btn btn-sm btn-secondary"
+              type="button"
+            >
+              Export PDF
+            </button>
+          </div>
+        </div>
+
+        <div class="filters">
+          <input
+            type="text"
+            id="searchInput"
+            class="search-input"
+            placeholder="Search by name, phone, or residence..."
+            aria-label="Search members"
+          />
+          <select id="filterYear" aria-label="Filter by year of study">
+            <option value="All">All Years</option>
+            <option value="1">1st Year</option>
+            <option value="2">2nd Year</option>
+            <option value="3">3rd Year</option>
+            <option value="4">4th Year</option>
+            <option value="5">5th Year</option>
+          </select>
+        </div>
+
+        <div id="tableLoading" class="loading-panel" aria-live="polite">
+          <span class="spinner" aria-hidden="true"></span>
+          <span>Loading members...</span>
+        </div>
+
+        <div id="tableState" class="hidden"></div>
+
+        <div class="table-container">
+          <table id="membersTable" aria-live="polite">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Programme</th>
+                <th>Year</th>
+                <th>Residence</th>
+                <th>Birthday</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="membersTableBody">
+              <tr>
+                <td colspan="7" style="text-align: center">
+                  Loading records...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div
+          id="paginationControls"
+          class="pagination-controls"
+          aria-label="Member table pagination"
+        ></div>
+      </section>
+    </main>
+
+    <div id="memberModal" class="modal hidden" aria-hidden="true">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 id="memberModalTitle">Add Member</h3>
+          <button
+            type="button"
+            id="closeMemberModalBtn"
+            class="icon-btn"
+            aria-label="Close form"
+          >
+            ×
           </button>
-
         </div>
 
+        <form id="memberForm">
+          <input type="hidden" id="memberId" />
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="memberFirstName">First Name</label>
+              <input type="text" id="memberFirstName" required />
+            </div>
+
+            <div class="form-group">
+              <label for="memberLastName">Last Name</label>
+              <input type="text" id="memberLastName" required />
+            </div>
+
+            <div class="form-group">
+              <label for="memberPhone">Phone Number</label>
+              <input type="tel" id="memberPhone" required />
+            </div>
+
+            <div class="form-group">
+              <label for="memberDob">Date of Birth</label>
+              <input type="date" id="memberDob" required />
+            </div>
+
+            <div class="form-group">
+              <label for="memberProgramme">Programme</label>
+              <input type="text" id="memberProgramme" required />
+            </div>
+
+            <div class="form-group">
+              <label for="memberYearOfStudy">Year of Study</label>
+              <select id="memberYearOfStudy" required>
+                <option value="">Select Year</option>
+                <option value="1">1st Year</option>
+                <option value="2">2nd Year</option>
+                <option value="3">3rd Year</option>
+                <option value="4">4th Year</option>
+                <option value="5">5th Year</option>
+              </select>
+            </div>
+
+            <div class="form-group full-width">
+              <label for="memberResidence">Residence</label>
+              <input type="text" id="memberResidence" required />
+            </div>
+          </div>
+
+          <div class="modal-actions">
+            <button
+              type="button"
+              id="cancelMemberBtn"
+              class="btn btn-secondary btn-sm"
+            >
+              Cancel
+            </button>
+            <button type="submit" class="btn btn-sm">Save Member</button>
+          </div>
+        </form>
       </div>
-
-
-      <!-- Search and Filters -->
-      <div class="filters">
-
-        <input type="text"
-               id="searchInput"
-               placeholder="Search by name, phone, or residence..."
-               style="flex: 2;">
-
-        <select id="filterYear">
-          <option value="All">All Years</option>
-          <option value="1">1st Year</option>
-          <option value="2">2nd Year</option>
-          <option value="3">3rd Year</option>
-          <option value="4">4th Year</option>
-          <option value="5">5th Year</option>
-        </select>
-
-      </div>
-
-
-      <!-- Member Table -->
-      <div class="table-container">
-
-        <table>
-
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Phone</th>
-              <th>Programme</th>
-              <th>Year</th>
-              <th>Residence</th>
-              <th>Birthday</th>
-            </tr>
-          </thead>
-
-          <tbody id="membersTableBody">
-            <tr>
-              <td colspan="6" style="text-align: center;">
-                Loading records...
-              </td>
-            </tr>
-          </tbody>
-
-        </table>
-
-      </div>
-
-    </section>
-
-  </main>
-
-
-  <!-- Page Footer -->
-  <footer>
-    <div class="container">
-      <p>CBU UCZ Fellowship &copy; 2026/2027</p>
-      <p>Secretary General Records System</p>
     </div>
-  </footer>
 
+    <footer>
+      <div class="container">
+        <p>CBU UCZ Fellowship &copy; 2026/2027</p>
+        <p>Secretary General Records System</p>
+      </div>
+    </footer>
 
-  <!-- PDF Generation Libraries -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
-
-  <!-- Dashboard JavaScript -->
-  <script src="js/dashboard.js"></script>
-
-</body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+    <script src="firebase-config.js"></script>
+    <script type="module" src="js/dashboard.js"></script>
+  </body>
 </html>
-```

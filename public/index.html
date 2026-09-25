@@ -1,217 +1,222 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CBU UCZ Fellowship — Member Registration</title>
-  <link rel="stylesheet" href="style.css">
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CBU UCZ Fellowship Member Registration</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
 
-<body>
+  <body>
+    <div
+      id="appToast"
+      class="toast"
+      aria-live="polite"
+      aria-atomic="true"
+    ></div>
 
-  <!-- Page Header -->
-  <header class="header-banner">
+    <header class="header-banner">
+      <div class="header-container">
+        <img src="images/cbu-logo.png" alt="CBU Logo" class="logo logo-left" />
 
-    <div class="header-container">
+        <div class="header-title">
+          <h1>CBU UCZ FELLOWSHIP</h1>
+          <p>
+            2026/2027 Academic Year firebase init hosting Member Registration
+          </p>
+        </div>
 
-      <img src="images/cbu logo.png"
-           alt="CBU Logo"
-           class="logo logo-left">
-
-      <div class="header-title">
-        <h1>CBU UCZ FELLOWSHIP</h1>
-        <p>2026/2027 Academic Year — Member Registration</p>
+        <img src="images/ucz-logo.png" alt="UCZ Logo" class="logo logo-right" />
       </div>
+    </header>
 
-      <img src="images/ucz logo.png"
-           alt="UCZ Logo"
-           class="logo logo-right">
+    <main class="container">
+      <section class="card" aria-labelledby="registration-heading">
+        <h2 id="registration-heading">Register Membership</h2>
 
-    </div>
-
-  </header>
-
-  <!-- Main Content -->
-  <main class="container">
-
-    <section class="card" aria-labelledby="registration-heading">
-
-      <h2 id="registration-heading">
-        Register Membership
-      </h2>
-
-
-      <!-- Registration Form -->
-      <form id="registrationForm">
-
-        <div class="form-group">
-          <label for="firstName">
-            First Name *
-          </label>
-
-          <input type="text"
-                 id="firstName"
-                 required>
-        </div>
-
-
-        <div class="form-group">
-          <label for="lastName">
-            Last Name *
-          </label>
-
-          <input type="text"
-                 id="lastName"
-                 required>
-        </div>
-
-
-        <div class="form-group">
-          <label for="phone">
-            Phone Number (WhatsApp) *
-          </label>
-
-          <input type="tel"
-                 id="phone"
-                 required>
-        </div>
-
-
-        <div class="form-group">
-
-          <label>
-            Date of Birth *
-          </label>
-
-          <div style="display: flex; gap: 10px;">
-
-            <select id="dobMonth"
-                    required
-                    style="flex: 2;">
-
-              <option value="">
-                Month...
-              </option>
-
-              <option value="01">January</option>
-              <option value="02">February</option>
-              <option value="03">March</option>
-              <option value="04">April</option>
-              <option value="05">May</option>
-              <option value="06">June</option>
-              <option value="07">July</option>
-              <option value="08">August</option>
-              <option value="09">September</option>
-              <option value="10">October</option>
-              <option value="11">November</option>
-              <option value="12">December</option>
-
-            </select>
-
-
-            <input type="number"
-                   id="dobDay"
-                   placeholder="Day"
-                   min="1"
-                   max="31"
-                   required
-                   style="flex: 1;">
-
-
-            <input type="number"
-                   id="dobYear"
-                   placeholder="Year (Optional)"
-                   min="1950"
-                   max="2015"
-                   style="flex: 1.5;">
-
+        <form id="registrationForm" class="registration-form" novalidate>
+          <div class="form-group">
+            <label for="firstName"> First Name * </label>
+            <input
+              type="text"
+              id="firstName"
+              maxlength="50"
+              required
+              aria-describedby="firstNameError"
+            />
+            <div
+              class="field-error"
+              id="firstNameError"
+              aria-live="polite"
+            ></div>
           </div>
 
-        </div>
+          <div class="form-group">
+            <label for="lastName"> Last Name * </label>
+            <input
+              type="text"
+              id="lastName"
+              maxlength="50"
+              required
+              aria-describedby="lastNameError"
+            />
+            <div
+              class="field-error"
+              id="lastNameError"
+              aria-live="polite"
+            ></div>
+          </div>
 
+          <div class="form-group">
+            <label for="phone"> Phone Number (WhatsApp) * </label>
+            <input
+              type="tel"
+              id="phone"
+              inputmode="tel"
+              maxlength="13"
+              placeholder="+260971234567"
+              required
+              aria-describedby="phoneError"
+            />
+            <div class="field-error" id="phoneError" aria-live="polite"></div>
+          </div>
 
-        <div class="form-group">
+          <div class="form-group">
+            <label> Date of Birth * </label>
+            <div class="dob-row">
+              <select id="dobMonth" class="dob-month" required>
+                <option value="">Month...</option>
+                <option value="01">January</option>
+                <option value="02">February</option>
+                <option value="03">March</option>
+                <option value="04">April</option>
+                <option value="05">May</option>
+                <option value="06">June</option>
+                <option value="07">July</option>
+                <option value="08">August</option>
+                <option value="09">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+              </select>
 
-          <label for="programme">
-            Programme of Study *
-          </label>
+              <input
+                type="number"
+                id="dobDay"
+                class="dob-day"
+                placeholder="Day"
+                min="1"
+                max="31"
+                required
+                aria-describedby="dobDayError"
+              />
+              <div
+                class="field-error dob-field-error"
+                id="dobDayError"
+                aria-live="polite"
+              ></div>
 
-          <input type="text"
-                 id="programme"
-                 required>
+              <input
+                type="number"
+                id="dobYear"
+                class="dob-year"
+                placeholder="Year"
+                min="1990"
+                max="2016"
+                step="1"
+                required
+                aria-describedby="dobYearError"
+              />
+              <div
+                class="field-error dob-field-error"
+                id="dobYearError"
+                aria-live="polite"
+              ></div>
+            </div>
+          </div>
 
-        </div>
+          <div class="form-group">
+            <label for="programme"> Programme of Study * </label>
+            <input
+              type="text"
+              id="programme"
+              maxlength="100"
+              pattern="[A-Za-z][A-Za-z'&/.\\- ]{1,99}"
+              title="Letters only, e.g. Computer Science"
+              required
+              aria-describedby="programmeError"
+            />
+            <div
+              class="field-error"
+              id="programmeError"
+              aria-live="polite"
+            ></div>
+          </div>
 
+          <div class="form-group">
+            <label for="yearOfStudy"> Year of Study * </label>
+            <select
+              id="yearOfStudy"
+              required
+              aria-describedby="yearOfStudyError"
+            >
+              <option value="">Select Year...</option>
+              <option value="1">1st Year</option>
+              <option value="2">2nd Year</option>
+              <option value="3">3rd Year</option>
+              <option value="4">4th Year</option>
+              <option value="5">5th Year</option>
+            </select>
+            <div
+              class="field-error"
+              id="yearOfStudyError"
+              aria-live="polite"
+            ></div>
+          </div>
 
-        <div class="form-group">
+          <div class="form-group">
+            <label for="residence"> Current Residence * </label>
+            <input
+              type="text"
+              id="residence"
+              maxlength="100"
+              required
+              placeholder="e.g. Campus(H215), Ngozi Street #6754, Frazer Crescent #28"
+              aria-describedby="residenceError"
+            />
+            <div
+              class="field-error"
+              id="residenceError"
+              aria-live="polite"
+            ></div>
+          </div>
 
-          <label for="yearOfStudy">
-            Year of Study *
-          </label>
+          <button
+            type="submit"
+            id="submitRegistrationBtn"
+            class="btn submit-btn"
+          >
+            Submit Registration
+          </button>
+        </form>
 
-          <select id="yearOfStudy" required>
+        <div
+          id="statusMessage"
+          aria-live="polite"
+          aria-atomic="true"
+          style="margin-top: 15px; text-align: center"
+        ></div>
+      </section>
+    </main>
 
-            <option value="">
-              Select Year...
-            </option>
-
-            <option value="1">1st Year</option>
-            <option value="2">2nd Year</option>
-            <option value="3">3rd Year</option>
-            <option value="4">4th Year</option>
-            <option value="5">5th Year</option>
-
-          </select>
-
-        </div>
-
-
-        <div class="form-group">
-
-          <label for="residence">
-            Current Residence *
-          </label>
-
-          <input type="text"
-                 id="residence"
-                 required
-                 placeholder="e.g. Campus(H215), Ngozi Street #6754, Frazer Crescent #28">
-
-        </div>
-
-
-        <button type="submit"
-                class="btn"
-                style="width: 100%;">
-          Submit Registration
-        </button>
-
-      </form>
-
-
-      <!-- Form Status -->
-      <div id="statusMessage"
-           style="margin-top: 15px; text-align: center;">
+    <footer>
+      <div class="container">
+        <p>CBU UCZ Fellowship &copy; 2026/2027</p>
+        <p>Member Registration System</p>
       </div>
+    </footer>
 
-    </section>
-
-  </main>
-
-
-  <!-- Page Footer -->
-  <footer>
-    <div class="container">
-      <p>CBU UCZ Fellowship &copy; 2026/2027</p>
-      <p>Member Registration System</p>
-    </div>
-  </footer>
-
-
-  <!-- Registration JavaScript -->
-  <script src="js/register.js"></script>
-
-</body>
+    <script src="firebase-config.js"></script>
+    <script type="module" src="js/register.js"></script>
+  </body>
 </html>
-```
