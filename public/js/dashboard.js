@@ -447,6 +447,13 @@ function openMemberModal(member = null) {
   title.textContent = member ? 'Edit Member' : 'Add Member';
   modal.classList.remove('hidden');
   modal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+
+  requestAnimationFrame(() => {
+    modal.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const firstField = form.querySelector('input, select, button');
+    firstField?.focus();
+  });
 }
 
 function closeMemberModal() {
@@ -458,6 +465,7 @@ function closeMemberModal() {
   form.reset();
   modal.classList.add('hidden');
   modal.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
 }
 
 async function saveMember(event) {
